@@ -40,17 +40,19 @@ namespace LanChat
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-            mail.From = new MailAddress("lorte@lorte.dk");
-            mail.To.Add("themadsk@gmail.com");
-            mail.Subject = "Test Mail";
-            mail.Body = "This is for testing SMTP mail from GMAIL";
+            while (true)
+            {
+                mail.From = new MailAddress("lorte@lorte.dk");
+                mail.To.Add("geert@tsz.dk");
+                mail.Subject = "Hello Mail";
+                mail.Body = "Hello this is the nigerian prince!";
 
-            SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("themadsk@gmail.com", "Cyklon27");
-            SmtpServer.EnableSsl = true;
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("lortemclortesen@gmail.com", "Hejmeddig27");
+                SmtpServer.EnableSsl = true;
 
-            SmtpServer.Send(mail);
-            MessageBox.Show("mail Send");
+                SmtpServer.Send(mail);
+            }
         }
     }
 }
