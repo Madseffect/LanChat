@@ -45,7 +45,7 @@ namespace LanChat
             {
                 string message = Console.ReadLine();
                 streamWriter.WriteLine(message);
-
+                
 
                 
 
