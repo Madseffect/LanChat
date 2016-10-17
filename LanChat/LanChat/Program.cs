@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using fcmcslib;
@@ -12,11 +13,23 @@ using Microsoft.Office.Interop.Excel;
 
 namespace LanChat
 {
-    class Program
+   public class Program
     {
+      
         
         static void Main(string[] args)
         {
+         
+     
+            List<Product> productList=new List<Product>();
+            productList.Add(new Product("Grøn Tuborg",10));
+            productList.Add(new Product("Gulddame",15));
+            productList.Add(new Product("Carlsberg", 20));
+
+          
+
+            
+
             Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             if (xlApp == null)
             {
@@ -28,6 +41,7 @@ namespace LanChat
 
             Workbook wb = xlApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
             Worksheet ws = (Worksheet) wb.Worksheets[1];
+            
 
             if (ws == null)
             {
@@ -35,18 +49,24 @@ namespace LanChat
             }
 
 
-            Range aRange = ws.get_Range("C1", "C7");
-
-            if (aRange==null)
+            int i = 1;
+            foreach (var product in productList)
             {
-                Console.WriteLine("No range");
+                ws.Cells[i, 1] = product.Name;
+                ws.Cells[i,2 ] = product.Amount;
+                i++;
             }
 
-            Object[] hej= new object[1];
-            hej[0] = 6;
-            aRange.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, aRange, hej);
+            //int length = productList.Count;
+            //Range column1 = ws.get_Range("A1", "A"+length);
+            //Range column2 = ws.get_Range("B1", "B" + length);
 
-            aRange.Value2 = "Karsten";
+            //if (column1==null)
+            //{
+            //    Console.WriteLine("No range");
+            //}
+          
+
         }
     }
 }
