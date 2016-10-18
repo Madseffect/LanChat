@@ -27,12 +27,15 @@ namespace LanChat
 
         public void BrugerHaandtering()
         {
-            while (true)
+            bool tf = true;
+            while (tf)
             {
+                
                 switch (Console.ReadLine())
                 {
                     case "j":
                         Console.WriteLine("Opretter forbindelse til server!");
+                        tf = false;
                         break;
                     case "n":
                         VelkommenTekst();
@@ -42,5 +45,22 @@ namespace LanChat
             
         }
 
+        protected bool Equals(LoginHaandtering other)
+        {
+            return string.Equals(bruger, other.bruger);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((LoginHaandtering) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (bruger != null ? bruger.GetHashCode() : 0);
+        }
     }
 }
