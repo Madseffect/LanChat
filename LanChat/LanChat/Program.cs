@@ -37,12 +37,12 @@ namespace LanChat
 
             //Info til Server
             byte[] outStream = System.Text.Encoding.ASCII.GetBytes(login.BrugerList[0]);
-            serverStream.Write(outStream, 0, outStream.Length);
+            serverStream.Write(outStream, 0, outStream.Length); // Fejl ved denne linje
             serverStream.Flush();
 
            
             clientSocket.Connect("127.0.0.1", 8888);
-            serverStream = clientSocket.GetStream();
+            serverStream = clientSocket.GetStream(); 
             StreamReader streamReader = new StreamReader(serverStream);
             StreamWriter streamWriter = new StreamWriter(serverStream);
             streamWriter.AutoFlush = true;
