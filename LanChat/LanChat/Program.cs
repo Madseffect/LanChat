@@ -19,6 +19,10 @@ namespace LanChat
         
         static void Main(string[] args)
         {
+
+
+
+
          
      
             List<Product> productList=new List<Product>();
@@ -27,8 +31,11 @@ namespace LanChat
             productList.Add(new Product("Carlsberg", 20));
 
           
+            Microsoft.Office.Interop.Access.Application acApp = new Microsoft.Office.Interop.Access.Application();
 
+            acApp.Visible = true;
             
+           //acApp.ac
 
             Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             if (xlApp == null)
