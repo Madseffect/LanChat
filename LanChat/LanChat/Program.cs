@@ -41,14 +41,14 @@ namespace LanChat
             serverStream.Flush();
 
            
-
-            Stream gs = clientSocket.GetStream();
-            StreamReader streamReader = new StreamReader(gs);
-            StreamWriter streamWriter = new StreamWriter(gs);
+            clientSocket.Connect("127.0.0.1", 8888);
+            serverStream = clientSocket.GetStream();
+            StreamReader streamReader = new StreamReader(serverStream);
+            StreamWriter streamWriter = new StreamWriter(serverStream);
             streamWriter.AutoFlush = true;
-            
 
-
+            // getMessage fra eksempel er ikke lavet ved dette punkt, vil prøve med vores egen måde.
+            // http://csharp.net-informations.com/communications/files/src/csharp-chat-client.txt
             while (true)
             {
                 string message = Console.ReadLine();
@@ -64,7 +64,7 @@ namespace LanChat
             }
 
 
-            gs.Close();
+            serverStream.Close();
 
             clientSocket.Close();
 
