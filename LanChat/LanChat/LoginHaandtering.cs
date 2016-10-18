@@ -11,16 +11,27 @@ namespace LanChat
     class LoginHaandtering
     {
 
-        string bruger;
+        public string Bruger { get; set; }
+        public List<string> BrugerList { get; set; }
+        
+
+        public LoginHaandtering()
+        {
+           BrugerList = new List<string>();
+        }
+        
+        
+        
         string operationInput;
 
         public void VelkommenTekst()
         {
             Console.WriteLine("");
             Console.WriteLine("Venligst angiv dit bruger navn!");
-            bruger = Console.ReadLine();
+            Bruger = Console.ReadLine();
+            BrugerList.Add(Bruger);
             Console.WriteLine("");
-            Console.WriteLine("Dit bruger navn er: " + bruger);
+            Console.WriteLine("Dit bruger navn er: " + Bruger);
             Console.WriteLine("");
             Console.WriteLine("Vil du oprette forbindelse til LanChat Serveren? j/n");
         }
@@ -47,7 +58,7 @@ namespace LanChat
 
         protected bool Equals(LoginHaandtering other)
         {
-            return string.Equals(bruger, other.bruger);
+            return string.Equals(Bruger, other.Bruger);
         }
 
         public override bool Equals(object obj)
@@ -60,7 +71,7 @@ namespace LanChat
 
         public override int GetHashCode()
         {
-            return (bruger != null ? bruger.GetHashCode() : 0);
+            return (Bruger != null ? Bruger.GetHashCode() : 0);
         }
     }
 }

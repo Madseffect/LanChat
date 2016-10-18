@@ -29,10 +29,18 @@ namespace LanChat
 
             login.BrugerHaandtering();
 
+            // TcpClient
+            TcpClient clientSocket = new TcpClient();
+            NetworkStream serverStream = default(NetworkStream);
+            string readData = null;
 
 
-            // Server forbindelse
-            TcpClient clientSocket = new TcpClient("127.0.0.1",6789);
+            //Info til Server
+            byte[] outStream = System.Text.Encoding.ASCII.GetBytes(login.BrugerList[0]);
+            serverStream.Write(outStream, 0, outStream.Length);
+            serverStream.Flush();
+
+           
 
             Stream gs = clientSocket.GetStream();
             StreamReader streamReader = new StreamReader(gs);
