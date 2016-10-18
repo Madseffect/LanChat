@@ -29,18 +29,17 @@ namespace LanChat
         {
             while (true)
             {
-                if (Console.ReadLine() == "n")
+                switch (Console.ReadLine())
                 {
-                    VelkommenTekst();
+                    case "j":
+                        Console.WriteLine("Opretter forbindelse til server!");
+                        break;
+                    case "n":
+                        VelkommenTekst();
+                        break;
                 }
-
-                if (Console.ReadLine() == "j")
-                {
-                    Console.WriteLine("Opretter forbindelse til server!");
-                    break;
-                }
-
             }
+            
         }
 
     }
