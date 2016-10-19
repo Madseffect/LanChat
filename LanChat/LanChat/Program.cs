@@ -1,25 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using fcmcslib;
-using Microsoft.Office.Interop.Access;
-using Microsoft.Office.Interop.Access.Dao;
-using Microsoft.Office.Interop.Excel;
-using Application = Microsoft.Office.Interop.Excel.Application;
-using ADODB;
-using ADOX;
-using DataTable = System.Data.DataTable;
-using DataTypeEnum = ADOX.DataTypeEnum;
 
 namespace LanChat
 {
@@ -29,31 +9,79 @@ namespace LanChat
 
         static void Main(string[] args)
         {
-
-            ADODB.Connection conn = new ADODB.Connection();
-            ADOX.Catalog Cat = new ADOX.Catalog();
-            ADOX.Table objTable = new ADOX.Table();
-
-
-
-
-            string database = @"C:\Users\thema\Desktop\WOO\file24.accdb";
-            Microsoft.Office.Interop.Access.Application app;
-            app = new Microsoft.Office.Interop.Access.Application();
-            app.NewCurrentDatabase(database,
-                                   Microsoft.Office.Interop.Access.AcNewDatabaseFormat.acNewDatabaseFormatAccess2007,
-                                  Type.Missing);
-            app.Visible = true;
+            List<Product> productList = new List<Product>();
+            productList.Add(new Product("Grøn Tuborg", 10));
+            productList.Add(new Product("Gulddame", 15));
+            productList.Add(new Product("Carlsberg", 20));
 
 
 
 
-            objTable.Name = "Navn";
-            objTable.Columns.Append("Navn");
 
-           //Cat.Tables.
+            OleDbConnection con;
+            OleDbCommand com;
+            OleDbDataReader dr;
+            con = new OleDbConnection("Provider = Microsoft.ACE.OLEDB.12.0; Data Source = C:/Users/thema/Desktop/WOO/Database42.accdb");
+            com = new OleDbCommand("Select*from Tabel1", con);
+
+            string strTemp = " [KEY] Text, [VALUE] Text ";
+            //com.CommandText = "insert into Tabel1 ([Navn]) values ('" + "value" + "')";
+            com.CommandText ="CREATE TABLE [Persons]("+strTemp+")";
+            con.Open();
+            dr = com.ExecuteReader();
+            //com.CommandText = "insert into Tabel1 ([Navn]) values ('"+test+"')";
 
 
+            //dr = com.ExecuteReader();
+
+
+
+
+            //string database = @"C:\Users\thema\Desktop\WOO\file111.accdb";
+            //Microsoft.Office.Interop.Access.Application app;
+            //app = new Microsoft.Office.Interop.Access.Application();
+            //app.NewCurrentDatabase(database,
+            //                       Microsoft.Office.Interop.Access.AcNewDatabaseFormat.acNewDatabaseFormatAccess2007,
+            //                      Type.Missing);
+
+            //app.CurrentDb().CreateTableDef("Tabel1", "navnefternavn","tab1");
+
+
+
+
+            #region reg1
+
+            //Microsoft.Office.Interop.Access.Application app = new Microsoft.Office.Interop.Access.Application();
+            //app.Visible = true;
+
+
+            //Workspace hej = app.DBEngine.CreateWorkspace("WK1", "", "");
+            //Database hej2 =  hej.CreateDatabase("hej", "dbLangNorwDan;pwd=NewPassword");
+
+            //hej.CreateDatabase("DB1", "dbLangNorwDan;pwd=NewPassword", "dbEncrypt");
+
+            // orkbook wb = xlApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+
+            //Microsoft.Office.Interop.Access.Application acc1 = new Microsoft.Office.Interop.Access.Application();
+            //DataTable table = new DataTable();
+
+            //table.TableName = "Tab1";
+            //table.Columns.Add("Col1");
+            //table.Rows.Add("row1");
+            //acc1.DBEngine.CreateDatabase("MyDB", "hej");
+
+
+
+
+
+            //accApp.Visible = true;
+            //objTable.Name = "Navn";
+            //objTable.Columns.Append("Navn");
+            //accApp.CurrentDb().CreateTableDef()
+
+            #endregion
+
+            #region reg2
 
             //Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             //if (xlApp == null)
@@ -62,7 +90,7 @@ namespace LanChat
             //    return;
             //}
 
-            //xlApp.Visible = true;
+            //xlApp.Visible = false;
 
             //Workbook wb = xlApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
             //Worksheet ws = (Worksheet)wb.Worksheets[1];
@@ -82,15 +110,15 @@ namespace LanChat
             //    i++;
             //}
 
-            ////int length = productList.Count;
-            ////Range column1 = ws.get_Range("A1", "A"+length);
-            ////Range column2 = ws.get_Range("B1", "B" + length);
 
-            ////if (column1==null)
-            ////{
-            ////    Console.WriteLine("No range");
-            ////}
 
+
+            //int length = productList.Count;
+            //Range column1 = ws.get_Range("A1", "A" + length);
+            //Range column2 = ws.get_Range("B1", "B" + length);
+
+
+            #endregion
 
         }
     }
