@@ -1,87 +1,98 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using ADOX;
+using Microsoft.Office.Core;
+using Application = Microsoft.Vbe.Interop.Application;
+
 
 namespace LanChat
 {
+    
     public class Program
     {
 
+    
 
         static void Main(string[] args)
         {
+            #region MyRegion
             List<Product> productList = new List<Product>();
             productList.Add(new Product("Grøn Tuborg", 10));
             productList.Add(new Product("Gulddame", 15));
             productList.Add(new Product("Carlsberg", 20));
+            #endregion
+            //Angiver sted og navn på db
+            //Console.WriteLine("Please insert the filepath to where you want to store your data:");
+
+           // string location =  Console.ReadLine();
+
+           // Console.WriteLine("Please insert the name you want for your Access database:");
+
+            string[] lines = File.ReadAllLines(@"C:\Users\thema\Desktop\WOO\temptext.txt");
+           string location = lines[0];
+            string name = lines[1];
+
+            string database = location + @"\" + name + ".accdb";
+            //string database = location + @"\" + Console.ReadLine() + ".accdb";
+
+            Console.WriteLine(database);
+
+            //string database = @"C:\Users\thema\Desktop\WOO\file005.accdb
 
 
+            //Opretter databasen
+            Microsoft.Office.Interop.Access.Application app;
+            app = new Microsoft.Office.Interop.Access.Application();
+            app.NewCurrentDatabase(database,
+                                   Microsoft.Office.Interop.Access.AcNewDatabaseFormat.acNewDatabaseFormatAccess2007,
+                                  Type.Missing);
+            app.CloseCurrentDatabase();
 
-
-
+            //Laver mine connection kald til db via Oledb
             OleDbConnection con;
             OleDbCommand com;
             OleDbDataReader dr;
-            con = new OleDbConnection("Provider = Microsoft.ACE.OLEDB.12.0; Data Source = C:/Users/thema/Desktop/WOO/Database42.accdb");
-            com = new OleDbCommand("Select*from Tabel1", con);
 
+            con = new OleDbConnection("Provider = Microsoft.ACE.OLEDB.12.0; Data Source ='" + database + "' ");
+            com = new OleDbCommand("Select*from Tabel1", con);
+           
+
+            //SQL kald som opretter table og inserter values
             string strTemp = " [KEY] Text, [VALUE] Text ";
             //com.CommandText = "insert into Tabel1 ([Navn]) values ('" + "value" + "')";
-            com.CommandText ="CREATE TABLE [Persons]("+strTemp+")";
+            com.CommandText = "CREATE TABLE [Person5](" + strTemp + ")";
+
+            OleDbCommand com2;
+            OleDbDataReader dr2;
+            com2 = new OleDbCommand("Select*from Person5", con);
+
+
+            string test = "hej";
+            com2.CommandText = "insert into Person5 ([KEY]) values ('hej')";
+
+
             con.Open();
+
             dr = com.ExecuteReader();
-            //com.CommandText = "insert into Tabel1 ([Navn]) values ('"+test+"')";
-
-
-            //dr = com.ExecuteReader();
+            dr2 = com2.ExecuteReader();
 
 
 
 
-            //string database = @"C:\Users\thema\Desktop\WOO\file111.accdb";
-            //Microsoft.Office.Interop.Access.Application app;
-            //app = new Microsoft.Office.Interop.Access.Application();
-            //app.NewCurrentDatabase(database,
-            //                       Microsoft.Office.Interop.Access.AcNewDatabaseFormat.acNewDatabaseFormatAccess2007,
-            //                      Type.Missing);
-
-            //app.CurrentDb().CreateTableDef("Tabel1", "navnefternavn","tab1");
+            
 
 
+            #region excel code
 
-
-            #region reg1
-
-            //Microsoft.Office.Interop.Access.Application app = new Microsoft.Office.Interop.Access.Application();
-            //app.Visible = true;
-
-
-            //Workspace hej = app.DBEngine.CreateWorkspace("WK1", "", "");
-            //Database hej2 =  hej.CreateDatabase("hej", "dbLangNorwDan;pwd=NewPassword");
-
-            //hej.CreateDatabase("DB1", "dbLangNorwDan;pwd=NewPassword", "dbEncrypt");
-
-            // orkbook wb = xlApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-
-            //Microsoft.Office.Interop.Access.Application acc1 = new Microsoft.Office.Interop.Access.Application();
-            //DataTable table = new DataTable();
-
-            //table.TableName = "Tab1";
-            //table.Columns.Add("Col1");
-            //table.Rows.Add("row1");
-            //acc1.DBEngine.CreateDatabase("MyDB", "hej");
-
-
-
-
-
-            //accApp.Visible = true;
-            //objTable.Name = "Navn";
-            //objTable.Columns.Append("Navn");
-            //accApp.CurrentDb().CreateTableDef()
-
-            #endregion
-
-            #region reg2
 
             //Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             //if (xlApp == null)
