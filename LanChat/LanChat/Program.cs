@@ -20,9 +20,12 @@ namespace LanChat
             while (true)
             {
                 mail.From = new MailAddress("lorte@lorte.dk");
-                mail.To.Add("mikimoller@gmail.com");
-                mail.Subject = "Hello Mail";
-                mail.Body = "Hello this is the nigerian prince!";
+                
+                mail.To.Add("Bonke_Andreasbonke@Hotmail.com");
+                mail.To.Add("aebeloe.madsen@hotmail.com");
+                mail.To.Add("Nikolajbang1995@gmail.com");
+                mail.Subject = "Mock exam svar";
+                mail.Body = "SNYDT";
 
                 SmtpServer.Port = 587;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("lortemclortesen@gmail.com", "Hejmeddig27");
